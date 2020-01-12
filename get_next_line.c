@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/12 11:40:42 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/12 17:31:27 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int		read_file(int fd, char *str, char **stock, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	static char *stock[BUFFER_SIZE];
+	static char *stock[OPEN_MAX];
 	char		*tmp;
 	int			index;
 	int			ret;
@@ -112,7 +112,11 @@ int				get_next_line(int fd, char **line)
 	if (ret != 0 || stock[fd] == NULL || stock[fd][0] == '\0')
 	{
 		if (!ret && *line)
-			*line = NULL;
+		{
+			if (!(*line = malloc(sizeof(char) * 1)))
+				return (GNL_ERROR);
+			*line = "";
+		}
 		return (ret);
 	}
 	*line = stock[fd];
