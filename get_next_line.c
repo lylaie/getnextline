@@ -113,9 +113,9 @@ int				get_next_line(int fd, char **line)
 	{
 		if (!ret && *line)
 		{
-			if (!(*line = malloc(sizeof(char) * 1)))
+			if (!(*line = malloc(sizeof(char) * 2)))
 				return (GNL_ERROR);
-			*line = "";
+			*line = ft_strdup("");
 		}
 		return (ret);
 	}
