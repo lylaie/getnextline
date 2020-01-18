@@ -111,15 +111,11 @@ int				get_next_line(int fd, char **line)
 	free(tmp);
 	if (ret != 0 || stock[fd] == NULL || stock[fd][0] == '\0')
 	{
-		if (!ret && *line)
-		{
-			if (!(*line = malloc(sizeof(char) * 2)))
-				return (GNL_ERROR);
+		if (!ret)
 			*line = ft_strdup("");
-		}
 		return (ret);
 	}
 	*line = stock[fd];
 	stock[fd] = NULL;
-	return (GNL_SUCCESS);
+	return (ret);
 }
