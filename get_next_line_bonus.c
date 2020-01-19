@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/12 12:10:02 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/16 19:21:31 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char		*ft_strdup(const char *str)
 	return (tmp);
 }
 
-static int		check_line(char **stock, char **line)
+static int		ft_check_line(char **stock, char **line)
 {
 	char		*tmp;
 	char		*str;
@@ -67,7 +67,7 @@ static int		check_line(char **stock, char **line)
 	return (1);
 }
 
-static int		read_file(int fd, char *str, char **stock, char **line)
+static int		ft_read_file(int fd, char *str, char **stock, char **line)
 {
 	int			result;
 	char		*tmp;
@@ -85,7 +85,7 @@ static int		read_file(int fd, char *str, char **stock, char **line)
 		}
 		else
 			*stock = ft_strdup(str);
-		if (check_line(stock, line))
+		if (ft_check_line(stock, line))
 			break ;
 	}
 	return ((result > 0 ? 1 : result));
@@ -93,7 +93,7 @@ static int		read_file(int fd, char *str, char **stock, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	static char *stock[BUFFER_SIZE];
+	static char *stock[OPEN_MAX];
 	char		*tmp;
 	int			index;
 	int			ret;
@@ -102,16 +102,20 @@ int				get_next_line(int fd, char **line)
 	malloc(sizeof(char) * BUFFER_SIZE + 1))) || (read(fd, stock[fd], 0) < 0))
 		return (GNL_ERROR);
 	if (stock[fd])
-		if (check_line(&stock[fd], line))
+		if (ft_check_line(&stock[fd], line))
 			return (GNL_SUCCESS);
 	index = 0;
 	while (index < BUFFER_SIZE)
 		tmp[index++] = '\0';
-	ret = read_file(fd, tmp, &stock[fd], line);
+	ret = ft_read_file(fd, tmp, &stock[fd], line);
 	free(tmp);
 	if (ret != 0 || stock[fd] == NULL || stock[fd][0] == '\0')
 	{
+<<<<<<< HEAD
 		if (!ret)
+=======
+		if (!ret && *line)
+>>>>>>> e938d3f7cc66a4b5f51b2705c5d73b5aa6b9baa3
 			*line = ft_strdup("");
 		return (ret);
 	}

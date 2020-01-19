@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/12 17:31:27 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/14 20:16:11 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static char		*ft_strdup(const char *str)
 	return (tmp);
 }
 
-static int		check_line(char **stock, char **line)
+static int		ft_check_line(char **stock, char **line)
 {
 	char		*tmp;
 	char		*str;
@@ -67,7 +67,7 @@ static int		check_line(char **stock, char **line)
 	return (1);
 }
 
-static int		read_file(int fd, char *str, char **stock, char **line)
+static int		ft_read_file(int fd, char *str, char **stock, char **line)
 {
 	int			result;
 	char		*tmp;
@@ -84,8 +84,12 @@ static int		read_file(int fd, char *str, char **stock, char **line)
 			tmp = NULL;
 		}
 		else
+		{
+
+				free(*stock);
 			*stock = ft_strdup(str);
-		if (check_line(stock, line))
+		}
+		if (ft_check_line(stock, line))
 			break ;
 	}
 	return ((result > 0 ? 1 : result));
@@ -93,7 +97,7 @@ static int		read_file(int fd, char *str, char **stock, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	static char *stock[OPEN_MAX];
+	static char *stock[BUFFER_SIZE < 0 ? -BUFFER_SIZE + 1 : BUFFER_SIZE + 1];
 	char		*tmp;
 	int			index;
 	int			ret;
@@ -102,12 +106,12 @@ int				get_next_line(int fd, char **line)
 	malloc(sizeof(char) * BUFFER_SIZE + 1))) || (read(fd, stock[fd], 0) < 0))
 		return (GNL_ERROR);
 	if (stock[fd])
-		if (check_line(&stock[fd], line))
+		if (ft_check_line(&stock[fd], line))
 			return (GNL_SUCCESS);
 	index = 0;
 	while (index < BUFFER_SIZE)
 		tmp[index++] = '\0';
-	ret = read_file(fd, tmp, &stock[fd], line);
+	ret = ft_read_file(fd, tmp, &stock[fd], line);
 	free(tmp);
 	if (ret != 0 || stock[fd] == NULL || stock[fd][0] == '\0')
 	{
