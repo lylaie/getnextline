@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/16 19:21:31 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:48:00 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 static char		*ft_strjoin(const char *s1, const char *s2)
 {
@@ -93,7 +93,7 @@ static int		ft_read_file(int fd, char *str, char **stock, char **line)
 
 int				get_next_line(int fd, char **line)
 {
-	static char *stock[OPEN_MAX];
+	static char *stock[BUFFER_SIZE < 0 ? -BUFFER_SIZE + 1 : BUFFER_SIZE + 1];
 	char		*tmp;
 	int			index;
 	int			ret;
@@ -111,11 +111,7 @@ int				get_next_line(int fd, char **line)
 	free(tmp);
 	if (ret != 0 || stock[fd] == NULL || stock[fd][0] == '\0')
 	{
-<<<<<<< HEAD
 		if (!ret)
-=======
-		if (!ret && *line)
->>>>>>> e938d3f7cc66a4b5f51b2705c5d73b5aa6b9baa3
 			*line = ft_strdup("");
 		return (ret);
 	}

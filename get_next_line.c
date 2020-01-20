@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/14 20:16:11 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/20 20:46:33 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,7 @@ static int		ft_read_file(int fd, char *str, char **stock, char **line)
 			tmp = NULL;
 		}
 		else
-		{
-
-				free(*stock);
 			*stock = ft_strdup(str);
-		}
 		if (ft_check_line(stock, line))
 			break ;
 	}
