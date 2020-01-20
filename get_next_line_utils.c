@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:57 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/12 11:33:29 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/21 00:31:24 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,10 @@ size_t		ft_strlen(const char *str)
 	while (str[len])
 		len++;
 	return (len);
+}
+
+int			ft_free(char *str)
+{
+	free(str);
+	return (1);
 }

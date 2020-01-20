@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/20 20:46:33 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/21 00:30:30 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int		ft_check_line(char **stock, char **line)
 	tmp = &str[index];
 	*tmp = '\0';
 	*line = ft_strdup(*stock);
+	free(*stock);
 	*stock = ft_strdup(tmp + 1);
 	return (1);
 }
@@ -103,7 +104,7 @@ int				get_next_line(int fd, char **line)
 		return (GNL_ERROR);
 	if (stock[fd])
 		if (ft_check_line(&stock[fd], line))
-			return (GNL_SUCCESS);
+			return (ft_free(tmp));
 	index = 0;
 	while (index < BUFFER_SIZE)
 		tmp[index++] = '\0';

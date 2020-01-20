@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:41:25 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/12 11:45:17 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/21 00:30:53 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,6 @@
 
 int						get_next_line(int fd, char **line);
 size_t					ft_strlen(const char *str);
+int						ft_free(char *str);
 
 #endif
