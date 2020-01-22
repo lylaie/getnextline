@@ -6,7 +6,7 @@
 /*   By: audumont <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/12 11:31:47 by audumont          #+#    #+#             */
-/*   Updated: 2020/01/21 00:30:30 by audumont         ###   ########.fr       */
+/*   Updated: 2020/01/22 19:39:44 by audumont         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,22 @@ static char		*ft_strdup(const char *str)
 static int		ft_check_line(char **stock, char **line)
 {
 	char		*tmp;
-	char		*str;
 	int			index;
+	char		*str;
 
 	index = 0;
 	str = *stock;
 	while (str[index] != '\n')
 	{
-		if (!str[index])
+		if (!(str[index]))
 			return (0);
 		index++;
 	}
-	tmp = &str[index];
-	*tmp = '\0';
+	str[index] = '\0';
+	tmp = ft_strdup(&str[index + 1]);
 	*line = ft_strdup(*stock);
 	free(*stock);
-	*stock = ft_strdup(tmp + 1);
+	*stock = tmp;
 	return (1);
 }
 
